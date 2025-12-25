@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="p-5 text-center bg-light rounded-4 shadow-sm mb-5">
+    <h1 class="fw-bold">📊 EduData Analytics Portal</h1>
+    <p class="lead">Upload your CSV data and generate insights, statistics, and charts instantly!</p>
+    <a href="/upload/" class="btn btn-outline-danger btn-sm px-4 mt-3">Start Analysis 📈</a>
+</div>
+
+<div class="row text-center">
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+                <h5 class="card-title fw-bold">📁 Upload Data</h5>
+                <p class="card-text">Import CSV datasets for processing and visualization.</p>
+                <a href="/upload/" class="btn btn-outline-primary btn-sm">Upload ➜</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+                <h5 class="card-title fw-bold">📈 Summary Report</h5>
+                <p class="card-text">Generate descriptive statistics and detect missing values.</p>
+                <a href="/summary/" class="btn btn-outline-success btn-sm">View Summary ➜</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+                <h5 class="card-title fw-bold">📉 Data Visualizations</h5>
+                <p class="card-text">Create charts & graphs for numeric and categorical data.</p>
+                <a href="/charts/" class="btn btn-outline-danger btn-sm">Charts ➜</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

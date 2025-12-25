@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">📁 Upload & Filter Data</h2>
+
+<!-- 📌 Upload CSV Section -->
+<form method="POST" enctype="multipart/form-data" class="p-3 bg-light rounded shadow-sm mb-4">
+    {% csrf_token %}
+    <label class="form-label fw-bold">Select a CSV file:</label>
+    <input type="file" name="file" class="form-control" accept=".csv, .xlsx, .xls" required>
+ <button class="btn btn-primary mt-2">📤 Upload</button>
+</form>
+
+<!-- 🟢 Success / 🔴 Error Messages -->
+{% if success %}
+<p class="alert alert-success">{{ success }}</p>
+{% endif %}
+{% if error %}
+<p class="alert alert-danger">{{ error }}</p>
+{% endif %}
+
+{% if columns|length > 0 %}
+<hr>
+<h4 class="mt-4 mb-3">🔍 Filter Data</h4>
+
+<!-- 🔍 Filter Section -->
+<form method="POST" class="row g-2 bg-white p-3 rounded shadow-sm mb-4">
+    {% csrf_token %}
+    <input type="hidden" name="filter" value="1">
+
+    <div class="col-md-4">
+        <label class="form-label">Column</label>
+        <select name="column" class="form-select">
+            <option value="">-- Select Column --</option>
+            {% for col in columns %}
+                <option value="{{ col }}" {% if filter_column == col %}selected{% endif %}>
+                    {{ col }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label">Search value</label>
+        <input type="text" name="query" class="form-control" placeholder="Type to search..."
+               value="{{ filter_query }}">
+    </div>
+
+    <div class="col-md-2 d-flex align-items-end">
+        <button class="btn btn-success w-100">Search</button>
+    </div>
+</form>
+{% endif %}
+
+<!-- 📊 Display Table -->
+{% if table %}
+<h4 class="mt-4">📊 Results:</h4>
+<div class="table-responsive mt-2">
+    {{ table|safe }}
+    
+</div>
+
+<!-- 📈 SUMMARY BUTTON -->
+<div class="mt-3">
+    <a href="/summary/" class="btn btn-warning btn-sm fw-bold">
+        📈 View Summary ➜
+    </a>
+</div>
+
+
+<!-- 🚀 Export Buttons -->
+<div class="d-flex gap-2 mt-3">
+    <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="filter" value="1">
+        <input type="hidden" name="column" value="{{ filter_column }}">
+        <input type="hidden" name="query" value="{{ filter_query }}">
+        <button name="export_csv" value="1" class="btn btn-outline-primary">⬇ Export as CSV</button>
+    </form>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="filter" value="1">
+        <input type="hidden" name="column" value="{{ filter_column }}">
+        <input type="hidden" name="query" value="{{ filter_query }}">
+        <button name="export_excel" value="1" class="btn btn-outline-success">⬇ Export as Excel</button>
+    </form>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button name="clear" class="btn btn-danger fw-bold">🧹 Clear Upload</button>
+    </form>
+    
+</div>
+{% endif %}
+
+
+
+
+{% endblock %}

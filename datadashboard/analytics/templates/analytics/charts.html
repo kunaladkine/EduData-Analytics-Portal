@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>📉 Charts & Visualizations</h2>
+
+{% if error %}
+<p style="color:red;">{{ error }}</p>
+<a href="/upload/">➡ Go Upload CSV</a>
+{% endif %}
+
+{% if charts %}
+<p>✔️ Charts generated successfully!</p>
+
+{% for chart in charts %}
+<div style="margin-bottom:20px;">
+    <img src="/media/{{ chart }}" width="600" alt="chart">
+</div>
+{% endfor %}
+
+<a class="btn btn-primary" href="/summary/">⬅ Back to Summary</a>
+{% endif %}
+
+{% endblock %}

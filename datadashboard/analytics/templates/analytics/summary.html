@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>📈 Data Summary</h2>
+
+{% if error %}
+<p style="color:red;">{{ error }}</p>
+<a href="/upload/">➡ Go Upload CSV</a>
+{% endif %}
+
+{% if not error %}
+<ul>
+  <li><b>Total Rows:</b> {{ total_rows }}</li>
+  <li><b>Total Columns:</b> {{ total_cols }}</li>
+</ul>
+
+<ul>
+<h3>📋 Columns & Data Types</h3>
+<table class="table table-bordered">
+    <tr><th>Column</th><th>Type</th></tr>
+    {% for col, dtype in dtypes_list %}
+    <tr>
+        <td>{{ col }}</td>
+        <td>{{ dtype }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</ul>
+
+<h3>❓ Missing Values</h3>
+<table class="table table-striped table-bordered">
+<tr><th>Column</th><th>Missing</th></tr>
+{% for col, count in missing_values %}
+<tr><td>{{ col }}</td><td>{{ count }}</td></tr>
+{% endfor %}
+</table>
+
+<h3>🔢 Numeric Summary</h3>
+{{ summary_stats|safe }}
+
+<hr>
+<a class="btn btn-danger" href="/charts/">Generate Charts ➜</a>
+{% endif %}
+{% endblock %}
