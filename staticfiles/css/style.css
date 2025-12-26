@@ -1,0 +1,8 @@
+body { font-family: Arial, sans-serif; background: #f6f6f6; }
+.container { width: 80%; margin: auto; }
+nav a { margin-right: 10px; text-decoration: none; }
+
+.card { transition: 0.3s; }
+.card:hover { transform: translateY(-5px); }
+.btn-lg { font-size: 1.1rem; }
+.nav-link:hover { color: #ffc107 !important; }
